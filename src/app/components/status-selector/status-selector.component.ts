@@ -4,7 +4,7 @@ import { STATUSES } from "../../constants/statuses.constant";
 import { STATUS_FIELD_STYLES } from "src/app/constants/status-field-styles.constant";
 
 @Component({
-  selector: "app-status-selector",
+  selector: "mds-status-selector",
   templateUrl: "./status-selector.component.html",
   styleUrls: ["./status-selector.component.scss"],
 })

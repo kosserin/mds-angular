@@ -10,12 +10,12 @@
   </div>
 </div>
 
-<app-create-task-dialog
+<mds-create-task-dialog
   *ngIf="showCreateDialog"
   (close)="closeCreateDialog()"
   (create)="handleCreate($event)"
 >
-</app-create-task-dialog>
+</mds-create-task-dialog>
 
 <mds-task-details-dialog
   *ngIf="showDetailsDialog"
