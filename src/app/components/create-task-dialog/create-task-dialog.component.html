@@ -1,0 +1,60 @@
+<div class="dialog-overlay" (click)="onClose()">
+  <div class="dialog" (click)="$event.stopPropagation()">
+    <div class="dialog-header">
+      <h2>Create</h2>
+      <button class="close-button" (click)="onClose()">✕</button>
+    </div>
+
+    <div class="dialog-content">
+      <form [formGroup]="taskForm">
+        <div class="form-field">
+          <label class="required">Status</label>
+          <app-status-selector
+            [currentStatus]="selectedStatus"
+            (statusChange)="onStatusChange($event)"
+          >
+          </app-status-selector>
+          <p class="note">This is the initial status upon creation</p>
+        </div>
+
+        <div class="form-field">
+          <label class="required">Summary</label>
+          <input
+            #summaryInput
+            type="text"
+            formControlName="summary"
+            placeholder="Enter summary"
+            [class.error]="isError('summary')"
+          />
+          <div
+            class="error-message"
+            *ngIf="
+              taskForm.get('summary')?.touched &&
+              taskForm.get('summary')?.invalid
+            "
+          >
+            <img src="assets/icons/error-24x24.svg" alt="" />
+            <span>Summary is required and must be at least 3 characters</span>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Description</label>
+          <textarea formControlName="description"></textarea>
+        </div>
+
+        <div class="form-field">
+          <label>Due date</label>
+          <input type="date" formControlName="dueDate" placeholder="Select date" />
+        </div>
+      </form>
+    </div>
+
+    <div class="dialog-footer">
+      <button class="base transparent" (click)="onClose()">Close</button>
+      <button class="base" [disabled]="!taskForm.valid" (click)="onCreate()">
+        Create
+      </button>
+    </div>
+  </div>
+</div>

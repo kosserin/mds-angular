@@ -1,0 +1,43 @@
+<div class="status-selector" (clickOutside)="closeDropdown()">
+  <div
+    class="status-field"
+    (click)="toggleDropdown()"
+    [ngStyle]="{
+      'background-color':
+        STATUS_FIELD_STYLES[currentStatus.color].backgroundColor
+    }"
+  >
+    <span
+      class="status-text"
+      [ngStyle]="{ color: STATUS_FIELD_STYLES[currentStatus.color].textColor }"
+      >{{ currentStatus.text }}</span
+    >
+    <img [src]="STATUS_FIELD_STYLES[currentStatus.color].iconSrc" alt="" />
+  </div>
+
+  <div class="status-dropdown" *ngIf="isOpen">
+    <div
+      *ngFor="let status of availableStatuses"
+      class="status-option"
+      (click)="selectStatus(status)"
+    >
+      <span
+        [ngStyle]="{
+          'background-color':
+            status.color === 'blue'
+              ? '#deebff'
+              : status.color === 'green'
+              ? '#e3fcef'
+              : '#f4f5f7',
+          color:
+            status.color === 'blue'
+              ? '#0747a6'
+              : status.color === 'green'
+              ? '#006644'
+              : '#42526e',
+        }"
+        >{{ status.text | uppercase }}</span
+      >
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+.board-container {
+  padding-block: 20px;
+  background-color: var(--white);
+}
+
+.board {
+  display: flex;
+  gap: 8px;
+  min-height: 100vh;
+  overflow-x: auto;
+  padding-inline: 20px;
+}
+
+.board-header {
+  padding: 20px;
+}
+
+.board-column {
+  flex: 0 0 200px;
+  background: var(--light-grey);
+  border-radius: 8px;
+  padding: 16px;
+
+  h3 {
+    margin: 0 0 16px 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--dark-grey);
+    text-transform: uppercase;
+    text-align: left;
+  }
+}

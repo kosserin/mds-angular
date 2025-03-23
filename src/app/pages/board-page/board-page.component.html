@@ -1,0 +1,19 @@
+<div class="board-container">
+  <div class="board-header">
+    <button class="base" (click)="openDialog()">Create</button>
+  </div>
+  <div class="board">
+    <div *ngFor="let status of statuses" class="board-column">
+      <h3>{{status.text}}</h3>
+      <div class="tasks">
+        <!-- Tasks will go here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-create-task-dialog 
+  *ngIf="showDialog"
+  (close)="closeDialog()"
+  (create)="handleCreate($event)">
+</app-create-task-dialog>
