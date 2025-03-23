@@ -1,5 +1,7 @@
-@import 'src/theme/variables';
-@import 'src/theme/styleguide';
+@import "src/theme/variables";
+@import "src/theme/styleguide";
+@import "src/theme/dialog";
+@import "src/theme/forms";
 
 * {
   box-sizing: border-box;
@@ -8,7 +10,8 @@
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
@@ -125,10 +128,4 @@ body {
 
 .header button {
   margin-left: 0.5rem;
-}
-
-.due-date {
-  font-size: 0.875rem;
-  color: var(--text-light-color);
-  margin-top: 0.25rem;
 }

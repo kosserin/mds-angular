@@ -23,18 +23,8 @@
     >
       <span
         [ngStyle]="{
-          'background-color':
-            status.color === 'blue'
-              ? '#deebff'
-              : status.color === 'green'
-              ? '#e3fcef'
-              : '#f4f5f7',
-          color:
-            status.color === 'blue'
-              ? '#0747a6'
-              : status.color === 'green'
-              ? '#006644'
-              : '#42526e',
+          color: STATUS_FIELD_STYLES[status.color].textColor,
+          'background-color': STATUS_FIELD_STYLES[status.color].backgroundColor
         }"
         >{{ status.text | uppercase }}</span
       >

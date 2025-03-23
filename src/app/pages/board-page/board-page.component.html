@@ -4,16 +4,24 @@
   </div>
   <div class="board">
     <div *ngFor="let status of statuses" class="board-column">
-      <h3>{{status.text}}</h3>
-      <div class="tasks">
-        <!-- Tasks will go here -->
-      </div>
+      <h3>{{ status.text }}</h3>
+      <mds-task-list [tasks]="tasks" [status]="status" (open)="openDetailsDialog($event)"></mds-task-list>
     </div>
   </div>
 </div>
 
-<app-create-task-dialog 
-  *ngIf="showDialog"
-  (close)="closeDialog()"
-  (create)="handleCreate($event)">
+<app-create-task-dialog
+  *ngIf="showCreateDialog"
+  (close)="closeCreateDialog()"
+  (create)="handleCreate($event)"
+>
 </app-create-task-dialog>
+
+<mds-task-details-dialog
+  *ngIf="showDetailsDialog"
+  [task]="selectedTask"
+  (close)="closeDetailsDialog()"
+  (save)="handleSave($event)"
+  (delete)="handleDelete($event)"
+>
+</mds-task-details-dialog>

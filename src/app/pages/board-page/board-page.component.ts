@@ -1,26 +1,56 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { STATUSES } from "src/app/constants/statuses.constant";
 import { Task } from "src/app/models/task.model";
+import { TaskService } from "src/app/services/task.service";
 
 @Component({
-  selector: "app-board-page",
+  selector: "mds-board-page",
   templateUrl: "./board-page.component.html",
   styleUrls: ["./board-page.component.scss"],
 })
-export class BoardPageComponent {
+export class BoardPageComponent implements OnInit {
   statuses = STATUSES;
-  showDialog = false;
+  showCreateDialog = false;
+  showDetailsDialog = false;
+  tasks: Task[] = [];
+  selectedTask!: Task;
 
+  constructor(private taskService: TaskService) {}
 
-  openDialog(): void {
-    this.showDialog = true;
+  ngOnInit(): void {
+    this.taskService.loadTasksFromStorage();
+    this.taskService.getTasks().subscribe((tasks) => (this.tasks = tasks));
   }
 
-  closeDialog(): void {
-    this.showDialog = false;
+  openDialog(): void {
+    this.showCreateDialog = true;
+  }
+
+  closeCreateDialog(): void {
+    this.showCreateDialog = false;
   }
 
   handleCreate(task: Task): void {
-    this.showDialog = false;
+    this.showCreateDialog = false;
+    this.taskService.addTask(task);
+  }
+
+  handleSave(task: Task): void {
+    this.showDetailsDialog = false;
+    this.taskService.updateTasks(task);
+  }
+
+  handleDelete(task: Task): void {
+    this.showDetailsDialog = false;
+    this.taskService.deleteTask(task.id);
+  }
+
+  closeDetailsDialog(): void {
+    this.showDetailsDialog = false;
+  }
+
+  openDetailsDialog(task: Task): void {
+    this.selectedTask = task;
+    this.showDetailsDialog = true;
   }
 }

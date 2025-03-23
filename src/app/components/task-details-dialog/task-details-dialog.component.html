@@ -1,28 +1,30 @@
 <div class="dialog-overlay" (click)="onClose()">
   <div class="dialog" (click)="$event.stopPropagation()">
     <div class="dialog-header">
-      <h2>Create</h2>
-      <button class="close-button" (click)="onClose()">✕</button>
+      <p class="task-id">TASK-{{ task.id }}</p>
+      <div class="header-actions">
+        <button class="delete-button" (click)="delete.emit(task)">
+          <img src="assets/icons/trash-24x24.svg" alt="Delete task" />
+        </button>
+        <button class="close-button" (click)="onClose()">✕</button>
+      </div>
     </div>
 
     <div class="dialog-content">
       <form [formGroup]="taskForm">
         <div class="form-field">
-          <label class="required">Status</label>
+          <label>Status</label>
           <mds-status-selector
-            [currentStatus]="selectedStatus"
+            [currentStatus]="taskForm.controls['status'].value"
             (statusChange)="onStatusChange($event)"
           >
           </mds-status-selector>
-          <p class="note">This is the initial status upon creation</p>
         </div>
-
         <div class="form-field">
-          <label class="required">Summary</label>
           <input
-            #summaryInput
             type="text"
             formControlName="summary"
+            class="title-edit-input"
             [class.error]="isError('summary')"
           />
           <div class="error-message" *ngIf="isError('summary')">
@@ -30,27 +32,24 @@
             <span>Summary is required and must be at least 3 characters</span>
           </div>
         </div>
-
         <div class="form-field">
           <label>Description</label>
           <textarea formControlName="description"></textarea>
         </div>
-
         <div class="form-field">
           <label>Due date</label>
           <input type="date" formControlName="dueDate" />
         </div>
       </form>
     </div>
-
     <div class="dialog-footer">
       <button class="base transparent" (click)="onClose()">Close</button>
       <button
         class="base"
         [disabled]="!taskForm.valid && taskForm.touched"
-        (click)="onCreate()"
+        (click)="onSave()"
       >
-        Create
+        Save
       </button>
     </div>
   </div>

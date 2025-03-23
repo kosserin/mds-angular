@@ -1,0 +1,9 @@
+<div class="task" (click)="open.emit(task)">
+  <div class="top">
+    <div class="task-id">TASK-{{ task.id }}</div>
+    <div class="task-title">{{ task.title }}</div>
+  </div>
+  <div class="task-due-date" *ngIf="task.dueDate">
+    {{ task.dueDate | date : "MMM d" }}
+  </div>
+</div>

@@ -1,0 +1,56 @@
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
+import { Task } from "../models/task.model";
+import { Status } from "../models/status.model";
+
+@Injectable({
+  providedIn: "root",
+})
+export class TaskService {
+  private tasks: Task[] = [];
+  private tasksSubject = new BehaviorSubject<Task[]>([]);
+
+  getTasks(): Observable<Task[]> {
+    return this.tasksSubject.asObservable();
+  }
+
+  addTask(task: Task): void {
+    this.tasks = [...this.tasks, task];
+    this.tasksSubject.next(this.tasks);
+    this.saveTasksToStorage();
+  }
+
+  changeTaskStatus(id: string, status: Status): void {
+    this.tasks = this.tasks.map((task) =>
+      task.id === id ? { ...task, status } : task
+    );
+    this.tasksSubject.next(this.tasks);
+    this.saveTasksToStorage();
+  }
+
+  updateTasks(task: Task): void {
+    this.tasks = this.tasks.map((t) =>
+      t.id === task.id ? { ...t, ...task } : t
+    );
+    this.tasksSubject.next(this.tasks);
+    this.saveTasksToStorage();
+  }
+
+  deleteTask(id: string): void {
+    this.tasks = this.tasks.filter((task) => task.id !== id);
+    this.tasksSubject.next(this.tasks);
+    this.saveTasksToStorage();
+  }
+
+  loadTasksFromStorage(): void {
+    const storedTasks = localStorage.getItem("tasks");
+    if (storedTasks) {
+      this.tasks = JSON.parse(storedTasks);
+      this.tasksSubject.next(this.tasks);
+    }
+  }
+
+  private saveTasksToStorage(): void {
+    localStorage.setItem("tasks", JSON.stringify(this.tasks));
+  }
+}

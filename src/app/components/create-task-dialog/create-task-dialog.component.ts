@@ -12,7 +12,7 @@ import { STATUSES } from "src/app/constants/statuses.constant";
 import { Status } from "src/app/models/status.model";
 
 @Component({
-  selector: "app-create-task-dialog",
+  selector: "mds-create-task-dialog",
   templateUrl: "./create-task-dialog.component.html",
   styleUrls: ["./create-task-dialog.component.scss"],
 })
