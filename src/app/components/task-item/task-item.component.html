@@ -1,4 +1,4 @@
-<div class="task" cdkDrag (click)="open.emit(task)">
+<div class="task" cdkDrag (click)="open.emit(task)" [ngClass]="getTaskClass(status)">
   <div class="top">
     <div class="task-id">TASK-{{ task.id }}</div>
     <div class="task-title">{{ task.title }}</div>

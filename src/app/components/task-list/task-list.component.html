@@ -10,6 +10,7 @@
   <mds-task-item
     *ngFor="let task of tasks | filterByStatus : status"
     [task]="task"
+    [status]="status"
     (open)="open.emit($event)"
   ></mds-task-item>
 </div>
