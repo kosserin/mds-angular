@@ -4,11 +4,11 @@ This documentation covers basic functionalities and structure of the project. Ap
 
 ## 🚀 Features
 
-✅ Board page with columns related to status with task items inside - Items on the board are draggable. Create task functionality added.
+✅ Interactive Board – A task board with draggable items organized into status-based columns. Users can create new tasks and move them between statuses effortlessly.
 
-✅ Statuses page with all statuses - Page where you can change order of statuses, remove them or add one
+✅ Customizable Statuses – A dedicated page to manage statuses, allowing users to reorder, add, or remove statuses as needed.
 
-✅ Task details preview - Dialog with all task relevant data in it. Availability to delete task.
+✅ Task Details Dialog – A detailed preview of each task, displaying all relevant information with options to edit or delete the task.
 
 ## 📂 Project Structure
 
@@ -44,12 +44,12 @@ todo-angular/
 
 ## 🛠️ Components
 
-CreateTaskDialogComponent - A dialog that displays the task creation form, triggered when the "Create Task" button in the board header is clicked.
-TaskDetailsDialogComponent - A dialog that appears when a task item is selected, showing its details.
-CreateStatusDialogComponent - A dialog that opens when the "Add Status" button is clicked on the edit page, containing a form for creating a new status.
-StatusSelectorComponent - A custom component that serves as a dropdown input field for selecting task statuses.
-TaskItemComponent - A component that displays an individual task, including its title, description, due date, status, and unique ID.
-TaskListComponent - A component responsible for rendering a list of task items and managing their interactions.
+- CreateTaskDialogComponent - A dialog that displays the task creation form, triggered when the "Create Task" button in the board header is clicked.
+- TaskDetailsDialogComponent - A dialog that appears when a task item is selected, showing its details.
+- CreateStatusDialogComponent - A dialog that opens when the "Add Status" button is clicked on the edit page, containing a form for creating a new status.
+- StatusSelectorComponent - A custom component that serves as a dropdown input field for selecting task statuses.
+- TaskItemComponent - A component that displays an individual task, including its title, description, due date, status, and unique ID.
+- TaskListComponent - A component responsible for rendering a list of task items and managing their interactions.
 
 ## 🎮 How It Works
 
@@ -64,8 +64,8 @@ TaskListComponent - A component responsible for rendering a list of task items a
 ## 📦 Installation & Setup
 
 ### Clone the repository
-```git clone git@github.com:kosserin/mds-angular.git```
-cd mds-angular
+```git clone git@github.com:kosserin/mds-angular.git``` <br>
+```cd mds-angular```
 
 ### Install dependencies
 ```npm install```
@@ -77,14 +77,14 @@ cd mds-angular
 
 To deploy the project to the Netlify:
 
-install netlify-cli globally:
+Install netlify-cli globally: <br>
 ```npm install -g netlify-cli```
 
-then initialize netlify:
+Initialize netlify: <br>
 ```netlify init```
 
-for build command write:
+Build command: <br>
 ```ng build```
 
-for directory to deploy write:
+Directory to deploy: <br>
 ```dist/todo-angular```
