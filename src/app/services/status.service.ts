@@ -28,6 +28,16 @@ export class StatusService {
     this.statusesSubject.next(this.statuses);
   }
 
+  deleteStatus(status: Status) {
+    const currentStatuses = this.statuses;
+    const updatedStatuses = currentStatuses.filter(
+      (s) => s.name !== status.name
+    );
+    this.statuses = [...updatedStatuses];
+    this.saveStatusesToStorage();
+    this.statusesSubject.next(this.statuses);
+  }
+
   loadStatusesFromStorage() {
     const stored = localStorage.getItem("statuses");
 

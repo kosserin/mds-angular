@@ -27,8 +27,7 @@ export class EditStatusesPageComponent implements OnInit {
   }
 
   deleteStatus(status: Status) {
-    const updatedStatuses = this.statuses.filter((s) => s.name !== status.name);
-    this.statusService.updateStatuses(updatedStatuses);
+    this.statusService.deleteStatus(status);
   }
 
   navigateBack() {
