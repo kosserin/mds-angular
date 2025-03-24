@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Status } from "src/app/models/status.model";
 import { Task } from "src/app/models/task.model";
+import { TaskService } from "src/app/services/task.service";
 
 @Component({
   selector: "mds-task-details-dialog",
@@ -11,11 +12,9 @@ import { Task } from "src/app/models/task.model";
 export class TaskDetailsDialogComponent {
   @Input() task!: Task;
   @Output() close = new EventEmitter<void>();
-  @Output() save = new EventEmitter<Task>();
-  @Output() delete = new EventEmitter<Task>();
   taskForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private taskService: TaskService) {}
 
   ngOnInit(): void {
     this.taskForm = this.fb.group({
@@ -47,8 +46,14 @@ export class TaskDetailsDialogComponent {
         ...(formValue.dueDate && { dueDate: formValue.dueDate }),
         ...(formValue.description && { description: formValue.description }),
       };
-      this.save.emit(task);
+      this.taskService.updateTasks(task);
+      this.close.emit();
     }
+  }
+
+  onDelete(id: string): void {
+    this.taskService.deleteTask(id);
+    this.close.emit();
   }
 
   isError(controlName: string): boolean {

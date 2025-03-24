@@ -1,4 +1,12 @@
-<div class="tasks">
+<div
+  class="tasks"
+  cdkDropList
+  [cdkDropListData]="tasks | filterByStatus : status"
+  [id]="status.name"
+  [cdkDropListConnectedTo]="getConnectedList()"
+  [cdkDropListSortingDisabled]="true"
+  (cdkDropListDropped)="onDrop($event)"
+>
   <mds-task-item
     *ngFor="let task of tasks | filterByStatus : status"
     [task]="task"

@@ -3,7 +3,7 @@
     <div class="dialog-header">
       <p class="task-id">TASK-{{ task.id }}</p>
       <div class="header-actions">
-        <button class="delete-button" (click)="delete.emit(task)">
+        <button class="delete-button" (click)="onDelete(task.id)">
           <img src="assets/icons/trash-24x24.svg" alt="Delete task" />
         </button>
         <button class="close-button" (click)="onClose()">✕</button>

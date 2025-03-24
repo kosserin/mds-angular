@@ -57,7 +57,7 @@
     font-size: 20px;
     cursor: pointer;
     padding: 4px 8px;
-    color: #666;
+    color: var(--dark-grey);
 
     &:hover {
       background-color: var(--light-grey);

@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
+import { DragDropModule } from "@angular/cdk/drag-drop";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -26,7 +27,13 @@ const PIPES = [FilterByStatusPipe];
 
 @NgModule({
   declarations: [AppComponent, PAGES, COMPONENTS, DIRECTIVES, PIPES],
-  imports: [BrowserModule, FormsModule, AppRoutingModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    DragDropModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

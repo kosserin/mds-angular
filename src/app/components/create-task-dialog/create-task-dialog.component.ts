@@ -10,6 +10,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { STATUSES } from "src/app/constants/statuses.constant";
 import { Status } from "src/app/models/status.model";
+import { Task } from "src/app/models/task.model";
 
 @Component({
   selector: "mds-create-task-dialog",
@@ -49,8 +50,8 @@ export class CreateTaskDialogComponent implements OnInit, AfterViewInit {
   onCreate(): void {
     if (this.taskForm.valid) {
       const formValue = this.taskForm.value;
-      const task = {
-        id: Date.now(), // Generate a temporary ID using timestamp
+      const task: Task = {
+        id: Date.now(),
         title: formValue.summary,
         status: formValue.status,
         ...(formValue.dueDate && { dueDate: formValue.dueDate }),

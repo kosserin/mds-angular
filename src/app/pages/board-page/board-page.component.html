@@ -5,7 +5,11 @@
   <div class="board">
     <div *ngFor="let status of statuses" class="board-column">
       <h3>{{ status.text }}</h3>
-      <mds-task-list [tasks]="tasks" [status]="status" (open)="openDetailsDialog($event)"></mds-task-list>
+      <mds-task-list
+        [tasks]="tasks"
+        [status]="status"
+        (open)="openDetailsDialog($event)"
+      ></mds-task-list>
     </div>
   </div>
 </div>
@@ -21,7 +25,5 @@
   *ngIf="showDetailsDialog"
   [task]="selectedTask"
   (close)="closeDetailsDialog()"
-  (save)="handleSave($event)"
-  (delete)="handleDelete($event)"
 >
 </mds-task-details-dialog>

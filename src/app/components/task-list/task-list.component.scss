@@ -1,5 +1,23 @@
 .tasks {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.cdk-drop-list-receiving {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 2px solid var(--accent-color);
+    background-color: var(--light-accent-color);
+    border-radius: 4px;
+  }
 }
