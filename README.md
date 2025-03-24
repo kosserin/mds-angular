@@ -1,4 +1,4 @@
-# 📱 MDS Angular Kanban Board
+# 📋 MDS Angular Kanban Board
 
 This documentation covers basic functionalities and structure of the project. Application is designed to implement kanban functionality, like the one Jira has. Below, you'll find details about the project structure, key features, and how it works.
 
