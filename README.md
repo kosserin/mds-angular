@@ -31,7 +31,8 @@ todo-angular/
 │   │-- theme/                     
 │   │   │-- dialog.css             # Styles related to dialog
 │   │   │-- forms.css              # Styles related to form field, input, textarea, labels
-│   │   └── variables.css          # CSS variables used for standardised colors across the application
+│   │   └── variables.css          # CSS color variables used for standardised colors across the application
+│   │-- styles.css                 # Global styles
 │-- package.json                   # Dependencies and scripts
 │-- angular.json                   # Angular configuration
 │-- README.md                      # This file!
