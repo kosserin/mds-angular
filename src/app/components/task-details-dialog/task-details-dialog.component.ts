@@ -10,22 +10,15 @@ import { TaskService } from "src/app/services/task.service";
   styleUrls: ["./task-details-dialog.component.scss"],
 })
 export class TaskDetailsDialogComponent {
-  @Input() task!: Task;
   @Output() close = new EventEmitter<void>();
+  task!: Task;
   taskForm!: FormGroup;
 
   constructor(private fb: FormBuilder, private taskService: TaskService) {}
 
   ngOnInit(): void {
-    this.taskForm = this.fb.group({
-      summary: [
-        this.task.title,
-        [Validators.required, Validators.minLength(3)],
-      ],
-      status: [this.task.status, Validators.required],
-      description: [this.task.description, []],
-      dueDate: [this.task.dueDate, []],
-    });
+    this.task = this.taskService.selectedTask!;
+    this.initForm();
   }
 
   onClose(): void {
@@ -61,5 +54,17 @@ export class TaskDetailsDialogComponent {
     const isControlInvalid = this.taskForm.get(controlName)?.invalid;
 
     return isControlTouched && isControlInvalid!;
+  }
+
+  private initForm(): void {
+    this.taskForm = this.fb.group({
+      summary: [
+        this.task.title,
+        [Validators.required, Validators.minLength(3)],
+      ],
+      status: [this.task.status, Validators.required],
+      description: [this.task.description, []],
+      dueDate: [this.task.dueDate, []],
+    });
   }
 }

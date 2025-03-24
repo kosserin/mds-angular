@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { STATUSES } from "src/app/constants/statuses.constant";
 import { Status } from "src/app/models/status.model";
 import { Task } from "src/app/models/task.model";
+import { TaskService } from "src/app/services/task.service";
 
 @Component({
   selector: "mds-create-task-dialog",
@@ -19,14 +20,13 @@ import { Task } from "src/app/models/task.model";
 })
 export class CreateTaskDialogComponent implements OnInit, AfterViewInit {
   @Output() close = new EventEmitter<void>();
-  @Output() create = new EventEmitter<any>();
   @ViewChild("summaryInput") summaryInput!: ElementRef;
 
   statuses = STATUSES;
   selectedStatus = STATUSES[0];
   taskForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private taskService: TaskService) {}
 
   ngOnInit(): void {
     this.taskForm = this.fb.group({
@@ -57,7 +57,8 @@ export class CreateTaskDialogComponent implements OnInit, AfterViewInit {
         ...(formValue.dueDate && { dueDate: formValue.dueDate }),
         ...(formValue.description && { description: formValue.description }),
       };
-      this.create.emit(task);
+      this.taskService.addTask(task);
+      this.close.emit();
     }
   }
 

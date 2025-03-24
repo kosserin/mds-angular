@@ -1,6 +1,6 @@
 <div class="board-container">
   <div class="board-header">
-    <button class="base" (click)="openDialog()">Create</button>
+    <button class="base" (click)="openCreateDialog()">Create</button>
   </div>
   <div class="board">
     <div *ngFor="let status of statuses" class="board-column">
@@ -17,13 +17,11 @@
 <mds-create-task-dialog
   *ngIf="showCreateDialog"
   (close)="closeCreateDialog()"
-  (create)="handleCreate($event)"
 >
 </mds-create-task-dialog>
 
 <mds-task-details-dialog
   *ngIf="showDetailsDialog"
-  [task]="selectedTask"
   (close)="closeDetailsDialog()"
 >
 </mds-task-details-dialog>

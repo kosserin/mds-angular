@@ -9,6 +9,7 @@ import { Status } from "../models/status.model";
 export class TaskService {
   private tasks: Task[] = [];
   private tasksSubject = new BehaviorSubject<Task[]>([]);
+  public selectedTask: Task | null = null;
 
   getTasks(): Observable<Task[]> {
     return this.tasksSubject.asObservable();
