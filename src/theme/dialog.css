@@ -47,7 +47,7 @@
     padding: 4px 8px;
 
     &:hover {
-      background-color: var(--light-grey);
+      background-color: var(--background-primary);
     }
   }
 
@@ -57,10 +57,10 @@
     font-size: 20px;
     cursor: pointer;
     padding: 4px 8px;
-    color: var(--dark-grey);
+    color: var(--text-primary);
 
     &:hover {
-      background-color: var(--light-grey);
+      background-color: var(--background-primary);
     }
   }
 }
