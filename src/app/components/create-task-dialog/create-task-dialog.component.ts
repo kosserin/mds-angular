@@ -6,11 +6,13 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
+  OnDestroy,
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { STATUSES } from "src/app/constants/statuses.constant";
+import { Subscription } from "rxjs";
 import { Status } from "src/app/models/status.model";
 import { Task } from "src/app/models/task.model";
+import { StatusService } from "src/app/services/status.service";
 import { TaskService } from "src/app/services/task.service";
 
 @Component({
@@ -18,41 +20,55 @@ import { TaskService } from "src/app/services/task.service";
   templateUrl: "./create-task-dialog.component.html",
   styleUrls: ["./create-task-dialog.component.scss"],
 })
-export class CreateTaskDialogComponent implements OnInit, AfterViewInit {
+export class CreateTaskDialogComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   @Output() close = new EventEmitter<void>();
-  @ViewChild("summaryInput") summaryInput!: ElementRef;
+  @ViewChild("titleInput") titleInput!: ElementRef;
 
-  statuses = STATUSES;
-  selectedStatus = STATUSES[0];
+  statuses!: Status[];
+  selectedStatus!: Status;
   taskForm!: FormGroup;
+  private sub!: Subscription;
 
-  constructor(private fb: FormBuilder, private taskService: TaskService) {}
+  constructor(
+    private fb: FormBuilder,
+    private taskService: TaskService,
+    private statusService: StatusService
+  ) {}
 
-  ngOnInit(): void {
-    this.taskForm = this.fb.group({
-      summary: ["", [Validators.required, Validators.minLength(3)]],
-      status: [this.selectedStatus, Validators.required],
-      description: ["", []],
-      dueDate: [null, []],
-    });
+  ngOnInit() {
+    this.selectedStatus = this.statusService.getStatuses()[0];
+
+    this.sub = this.statusService
+      .getStatusesObservable()
+      .subscribe((statuses) => (this.statuses = statuses));
+
+    this.initForm();
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
     setTimeout(() => {
-      this.summaryInput.nativeElement.focus();
+      this.titleInput.nativeElement.focus();
     });
   }
 
-  onClose(): void {
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+
+  onClose() {
     this.close.emit();
   }
 
-  onCreate(): void {
+  onCreate() {
+    console.log(this.taskForm.value);
+
     if (this.taskForm.valid) {
       const formValue = this.taskForm.value;
       const task: Task = {
         id: Date.now(),
-        title: formValue.summary,
+        title: formValue.title,
         status: formValue.status,
         ...(formValue.dueDate && { dueDate: formValue.dueDate }),
         ...(formValue.description && { description: formValue.description }),
@@ -62,15 +78,24 @@ export class CreateTaskDialogComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onStatusChange(status: Status): void {
+  onStatusChange(status: Status) {
     this.selectedStatus = status;
     this.taskForm.patchValue({ status });
   }
 
-  isError(controlName: string): boolean {
+  isError(controlName: string) {
     const isControlTouched = this.taskForm.get(controlName)!.touched;
     const isControlInvalid = this.taskForm.get(controlName)?.invalid;
 
     return isControlTouched && isControlInvalid!;
+  }
+
+  private initForm() {
+    this.taskForm = this.fb.group({
+      title: ["", [Validators.required, Validators.minLength(3)]],
+      status: [this.selectedStatus, Validators.required],
+      description: ["", []],
+      dueDate: [null, []],
+    });
   }
 }

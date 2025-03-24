@@ -1,18 +1,27 @@
 .board-container {
   padding-block: 20px;
   background-color: var(--white);
+  overflow-x: auto;
 }
 
 .board {
   display: flex;
   gap: 8px;
   min-height: 100vh;
-  overflow-x: auto;
   padding-inline: 20px;
 }
 
 .board-header {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
 }
 
 .board-column {

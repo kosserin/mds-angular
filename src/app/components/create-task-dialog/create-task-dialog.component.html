@@ -20,12 +20,12 @@
         <div class="form-field">
           <label class="required">Summary</label>
           <input
-            #summaryInput
+            #titleInput
             type="text"
-            formControlName="summary"
-            [class.error]="isError('summary')"
+            formControlName="title"
+            [class.error]="isError('title')"
           />
-          <div class="error-message" *ngIf="isError('summary')">
+          <div class="error-message" *ngIf="isError('title')">
             <img src="assets/icons/error-24x24.svg" alt="" />
             <span>Summary is required and must be at least 3 characters</span>
           </div>

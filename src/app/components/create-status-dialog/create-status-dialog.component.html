@@ -1,0 +1,50 @@
+<div class="dialog-overlay" (click)="onClose()">
+  <div class="dialog" (click)="$event.stopPropagation()">
+    <div class="dialog-header">
+      <h2>Create status</h2>
+      <button class="close-button" (click)="onClose()">✕</button>
+    </div>
+
+    <div class="dialog-content">
+      <form [formGroup]="statusForm">
+        <div class="form-field">
+          <label class="required">Name</label>
+          <input
+            #nameInput
+            type="text"
+            formControlName="name"
+            [class.error]="isError('name')"
+          />
+          <div class="error-message" *ngIf="isError('name')">
+            <img src="assets/icons/error-24x24.svg" alt="" />
+            <span>Name is required and must be at least 3 characters</span>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label class="required">Color</label>
+          <div class="color-wrapper">
+            <div
+              class="box"
+              *ngFor="let color of statusColors"
+              ngClass="{{ color }}"
+              [class.selected]="statusForm.get('color')!.value === color"
+              (click)="onColorSelect(color)"
+            ></div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="dialog-footer">
+      <button class="base transparent" (click)="onClose()">Close</button>
+      <button
+        class="base"
+        [disabled]="!statusForm.valid && statusForm.touched"
+        (click)="onCreate()"
+      >
+        Create
+      </button>
+    </div>
+  </div>
+</div>

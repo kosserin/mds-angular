@@ -1,7 +1,10 @@
+import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
-import { STATUSES } from "src/app/constants/statuses.constant";
+import { Status } from "src/app/models/status.model";
 import { Task } from "src/app/models/task.model";
+import { StatusService } from "src/app/services/status.service";
 import { TaskService } from "src/app/services/task.service";
 
 @Component({
@@ -10,39 +13,60 @@ import { TaskService } from "src/app/services/task.service";
   styleUrls: ["./board-page.component.scss"],
 })
 export class BoardPageComponent implements OnInit, OnDestroy {
-  statuses = STATUSES;
+  statuses!: Status[];
   showCreateDialog = false;
   showDetailsDialog = false;
   tasks: Task[] = [];
-  private sub!: Subscription;
+  private sub = new Subscription();
 
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private router: Router,
+    private taskService: TaskService,
+    private statusService: StatusService
+  ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.sub.add(
+      this.statusService
+        .getStatusesObservable()
+        .subscribe((statuses) => (this.statuses = statuses))
+    );
+
+    this.sub.add(
+      this.taskService.getTasks().subscribe((tasks) => (this.tasks = tasks))
+    );
+
     this.taskService.loadTasksFromStorage();
-    this.sub = this.taskService
-      .getTasks()
-      .subscribe((tasks) => (this.tasks = tasks));
+    this.statusService.loadStatusesFromStorage();
   }
 
-  ngOnDestroy(): void {
-    this.sub!.unsubscribe();
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
-  openCreateDialog(): void {
+  openCreateDialog() {
     this.showCreateDialog = true;
   }
 
-  closeCreateDialog(): void {
+  closeCreateDialog() {
     this.showCreateDialog = false;
   }
 
-  closeDetailsDialog(): void {
+  closeDetailsDialog() {
     this.showDetailsDialog = false;
   }
 
-  openDetailsDialog(task: Task): void {
+  openDetailsDialog(task: Task) {
     this.taskService.selectedTask = task;
     this.showDetailsDialog = true;
+  }
+
+  navigateToEditStatusesPage() {
+    this.router.navigateByUrl("/edit-statuses");
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.statuses, event.previousIndex, event.currentIndex);
+    this.statusService.updateStatuses(this.statuses);
   }
 }

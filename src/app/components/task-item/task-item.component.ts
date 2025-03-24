@@ -12,7 +12,7 @@ export class TaskItemComponent {
   @Input() status!: Status;
   @Output() open = new EventEmitter<Task>();
 
-  getTaskClass(status: Status): string {
+  getTaskClass(status: Status) {
     switch (status.color) {
       default:
       case "grey":

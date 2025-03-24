@@ -1,0 +1,36 @@
+<div class="edit-statuses-container">
+  <div class="statuses-header">
+    <h2>Statuses</h2>
+    <div class="header-actions">
+      <button class="base light" (click)="navigateBack()">Back</button>
+      <button class="base" (click)="openCreateStatusDialog()">Add Status</button>
+    </div>
+  </div>
+
+  <div
+    class="statuses"
+    cdkDropList
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div
+      cdkDrag
+      cdkDragHandle
+      *ngFor="let status of statuses"
+      class="status"
+      [ngClass]="getTaskClass(status)"
+    >
+      <h3>{{ status.text }}</h3>
+      <div class="right">
+        <div class="drag-handle">⋮</div>
+        <button class="close-button" (click)="deleteStatus(status)">✕</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<mds-create-status-dialog
+  *ngIf="showCreateStatusDialog"
+  (close)="closeCreateStatusDialog()"
+>
+</mds-create-status-dialog>

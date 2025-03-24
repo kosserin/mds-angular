@@ -1,6 +1,13 @@
 <div class="board-container">
   <div class="board-header">
-    <button class="base" (click)="openCreateDialog()">Create</button>
+    <h2>Dashboard</h2>
+    <div class="header-actions">
+      <button class="base light w-image" (click)="navigateToEditStatusesPage()">
+        <img src="assets/icons/config-24x24.svg" alt="" />
+        <span>Edit statuses</span>
+      </button>
+      <button class="base" (click)="openCreateDialog()">Create task</button>
+    </div>
   </div>
   <div class="board">
     <div *ngFor="let status of statuses" class="board-column">
@@ -14,10 +21,7 @@
   </div>
 </div>
 
-<mds-create-task-dialog
-  *ngIf="showCreateDialog"
-  (close)="closeCreateDialog()"
->
+<mds-create-task-dialog *ngIf="showCreateDialog" (close)="closeCreateDialog()">
 </mds-create-task-dialog>
 
 <mds-task-details-dialog

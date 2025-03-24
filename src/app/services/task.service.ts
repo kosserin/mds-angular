@@ -15,13 +15,13 @@ export class TaskService {
     return this.tasksSubject.asObservable();
   }
 
-  addTask(task: Task): void {
+  addTask(task: Task) {
     this.tasks = [...this.tasks, task];
     this.tasksSubject.next(this.tasks);
     this.saveTasksToStorage();
   }
 
-  changeTaskStatus(id: string, status: Status): void {
+  changeTaskStatus(id: string, status: Status) {
     this.tasks = this.tasks.map((task) =>
       task.id === id ? { ...task, status } : task
     );
@@ -29,7 +29,7 @@ export class TaskService {
     this.saveTasksToStorage();
   }
 
-  updateTasks(task: Task): void {
+  updateTasks(task: Task) {
     this.tasks = this.tasks.map((t) =>
       t.id === task.id ? { ...t, ...task } : t
     );
@@ -37,13 +37,13 @@ export class TaskService {
     this.saveTasksToStorage();
   }
 
-  deleteTask(id: string): void {
+  deleteTask(id: string) {
     this.tasks = this.tasks.filter((task) => task.id !== id);
     this.tasksSubject.next(this.tasks);
     this.saveTasksToStorage();
   }
 
-  loadTasksFromStorage(): void {
+  loadTasksFromStorage() {
     const storedTasks = localStorage.getItem("tasks");
     if (storedTasks) {
       this.tasks = JSON.parse(storedTasks);
@@ -51,7 +51,7 @@ export class TaskService {
     }
   }
 
-  private saveTasksToStorage(): void {
+  private saveTasksToStorage() {
     localStorage.setItem("tasks", JSON.stringify(this.tasks));
   }
 }

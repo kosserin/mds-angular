@@ -16,25 +16,25 @@ export class TaskDetailsDialogComponent {
 
   constructor(private fb: FormBuilder, private taskService: TaskService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.task = this.taskService.selectedTask!;
     this.initForm();
   }
 
-  onClose(): void {
+  onClose() {
     this.close.emit();
   }
 
-  onStatusChange(status: Status): void {
+  onStatusChange(status: Status) {
     this.taskForm.patchValue({ status });
   }
 
-  onSave(): void {
+  onSave() {
     if (this.taskForm.valid) {
       const formValue = this.taskForm.value;
       const task = {
         id: this.task.id,
-        title: formValue.summary,
+        title: formValue.title,
         status: formValue.status,
         ...(formValue.dueDate && { dueDate: formValue.dueDate }),
         ...(formValue.description && { description: formValue.description }),
@@ -44,21 +44,21 @@ export class TaskDetailsDialogComponent {
     }
   }
 
-  onDelete(id: string): void {
+  onDelete(id: string) {
     this.taskService.deleteTask(id);
     this.close.emit();
   }
 
-  isError(controlName: string): boolean {
+  isError(controlName: string) {
     const isControlTouched = this.taskForm.get(controlName)!.touched;
     const isControlInvalid = this.taskForm.get(controlName)?.invalid;
 
     return isControlTouched && isControlInvalid!;
   }
 
-  private initForm(): void {
+  private initForm() {
     this.taskForm = this.fb.group({
-      summary: [
+      title: [
         this.task.title,
         [Validators.required, Validators.minLength(3)],
       ],

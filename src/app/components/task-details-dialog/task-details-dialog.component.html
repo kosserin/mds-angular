@@ -23,11 +23,11 @@
         <div class="form-field">
           <input
             type="text"
-            formControlName="summary"
+            formControlName="title"
             class="title-edit-input"
-            [class.error]="isError('summary')"
+            [class.error]="isError('title')"
           />
-          <div class="error-message" *ngIf="isError('summary')">
+          <div class="error-message" *ngIf="isError('title')">
             <img src="assets/icons/error-24x24.svg" alt="" />
             <span>Summary is required and must be at least 3 characters</span>
           </div>
