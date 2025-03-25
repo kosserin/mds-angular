@@ -89,3 +89,7 @@ Build command: <br>
 
 Directory to deploy: <br>
 ```dist/todo-angular```
+
+## 💻 Live Preview
+
+![Live Preview](src/assets/live-preview.gif)
